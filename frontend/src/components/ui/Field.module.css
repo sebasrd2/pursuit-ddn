@@ -1,0 +1,40 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ddn-ink-muted);
+}
+
+.input,
+.textarea {
+  border: 1px solid var(--ddn-line);
+  border-radius: 8px;
+  background: var(--ddn-surface);
+  color: var(--ddn-ink);
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.input {
+  height: 40px;
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--ddn-ink);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--ddn-ink-muted);
+}

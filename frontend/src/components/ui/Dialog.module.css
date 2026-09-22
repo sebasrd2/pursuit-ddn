@@ -1,0 +1,42 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 27, 29, 0.5);
+  animation: fade-in 0.15s ease;
+  z-index: 100;
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(480px, calc(100vw - 32px));
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--ddn-surface);
+  border-radius: var(--ddn-radius-card);
+  padding: 28px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  z-index: 101;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 16px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

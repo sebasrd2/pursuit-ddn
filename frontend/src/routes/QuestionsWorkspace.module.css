@@ -1,0 +1,62 @@
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.summary {
+  color: var(--ddn-ink-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.searchField {
+  min-width: 220px;
+  flex: 1;
+}
+
+.bulkBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--ddn-surface-alt);
+  border-radius: var(--ddn-radius-card);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.bulkCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ddn-ink);
+  margin-right: 4px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.listColumn {
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+}
+
+.detailColumn {
+  position: sticky;
+  top: 20px;
+}

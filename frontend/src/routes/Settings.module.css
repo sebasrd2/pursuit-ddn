@@ -1,0 +1,86 @@
+.title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.providerRow {
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+}
+
+.providerLabel {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 4px;
+}
+
+.thresholdRow {
+  max-width: 280px;
+}
+
+.criteriaTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.criteriaTable th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ddn-line);
+}
+
+.criteriaTable td {
+  padding: 12px;
+  border-bottom: 1px solid var(--ddn-line);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.criterionName {
+  font-weight: 700;
+  color: var(--ddn-ink);
+}
+
+.criterionDescription {
+  font-size: 12px;
+  color: var(--ddn-ink-muted);
+}
+
+.teamRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ddn-line);
+  font-size: 14px;
+}
+.teamRow:last-child {
+  border-bottom: none;
+}
+
+.addTeamRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: flex-end;
+}
+.addTeamRow > *:first-child {
+  flex: 1;
+}

@@ -1,0 +1,82 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ddn-line);
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--ddn-line);
+  font-size: 14px;
+}
+
+.searchRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+.searchRow > *:first-child {
+  flex: 1;
+}
+
+.passage {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ddn-line);
+}
+.passage:last-child {
+  border-bottom: none;
+}
+
+.passageHeading {
+  font-weight: 700;
+  color: var(--ddn-ink);
+  font-size: 14px;
+}
+
+.passageMeta {
+  font-size: 12px;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 4px;
+}
+
+.passageText {
+  font-size: 13px;
+  color: var(--ddn-ink-soft);
+}
+
+.empty {
+  color: var(--ddn-ink-muted);
+  font-size: 14px;
+}
