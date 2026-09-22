@@ -1,0 +1,18 @@
+# Runtime state (§12) — mounted volume, not tracked
+/data/
+
+# Knowledge source material (§12) — only README.md and sources.yaml are tracked
+/knowledge/*
+!/knowledge/README.md
+!/knowledge/sources.yaml
+
+# Environment
+.env
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
+
+# Editor / OS
+.DS_Store
