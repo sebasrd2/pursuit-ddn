@@ -1,0 +1,6 @@
+# Web pages to ingest into the knowledge base. One entry per source.
+# See planning/pursuit-spec.md §6.1.
+#
+# sources:
+#   - url: https://www.ddn.com/example-page/
+#     title: Example page title
