@@ -1,0 +1,56 @@
+.title {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 560px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 6px;
+}
+
+.dropzone {
+  border: 1px dashed var(--ddn-line);
+  border-radius: var(--ddn-radius-card);
+  padding: 24px;
+  text-align: center;
+  color: var(--ddn-ink-muted);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dropzone:hover {
+  border-color: var(--ddn-ink);
+  color: var(--ddn-ink-soft);
+}
+
+.fileName {
+  color: var(--ddn-ink);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.error {
+  color: var(--ddn-red);
+  font-size: 13px;
+}

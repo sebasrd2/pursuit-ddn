@@ -1,0 +1,91 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.customer {
+  color: var(--ddn-ink-muted);
+  font-size: 15px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.stepperCard {
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.metaLabel {
+  color: var(--ddn-ink-muted);
+}
+
+.decisionButtons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.emptyState {
+  color: var(--ddn-ink-muted);
+  font-size: 14px;
+}
+
+.exportRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}

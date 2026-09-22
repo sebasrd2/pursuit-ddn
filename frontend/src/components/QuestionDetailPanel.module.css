@@ -1,0 +1,63 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.question {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.citation {
+  font-size: 13px;
+  color: var(--ddn-ink-soft);
+}
+
+.citationLabel {
+  font-weight: 600;
+  color: var(--ddn-ink-muted);
+}
+
+.gapNote {
+  background: var(--ddn-red-bg);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.gapNoteLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ddn-red);
+  margin-bottom: 4px;
+}
+
+.gapNote p {
+  font-size: 13px;
+  color: var(--ddn-ink-soft);
+}
+
+.regenerate {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid var(--ddn-line);
+}
+.regenerate > *:first-child {
+  flex: 1;
+}
+
+.empty {
+  color: var(--ddn-ink-muted);
+  font-size: 14px;
+}

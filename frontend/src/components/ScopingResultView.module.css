@@ -1,0 +1,79 @@
+.summary {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.scoreLabel {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 4px;
+}
+
+.score {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ddn-ink);
+}
+
+.thresholdText {
+  font-size: 13px;
+  color: var(--ddn-ink-soft);
+  max-width: 320px;
+}
+
+.disqualifier {
+  padding: 12px 0;
+  border-top: 1px solid var(--ddn-line);
+  border-bottom: 1px solid var(--ddn-line);
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ddn-line);
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--ddn-line);
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.criterionName {
+  font-weight: 700;
+  color: var(--ddn-ink);
+}
+
+.criterionDescription {
+  font-size: 12px;
+  color: var(--ddn-ink-muted);
+  margin: 2px 0 4px;
+}
+
+.evidence {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ddn-ink-soft);
+  margin-bottom: 4px;
+}
+
+.reasoning {
+  font-size: 13px;
+  color: var(--ddn-ink-muted);
+}

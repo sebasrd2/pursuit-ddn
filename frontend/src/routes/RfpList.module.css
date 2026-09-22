@@ -1,0 +1,58 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-ink-muted);
+  padding: 0 16px 12px;
+  border-bottom: 1px solid var(--ddn-line);
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--ddn-line);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--ddn-surface-alt);
+}
+
+.name {
+  font-weight: 700;
+  color: var(--ddn-ink);
+  text-decoration: none;
+}
+
+.stage {
+  color: var(--ddn-ink-muted);
+}
+
+.empty {
+  padding: 64px 24px;
+  text-align: center;
+  color: var(--ddn-ink-muted);
+}

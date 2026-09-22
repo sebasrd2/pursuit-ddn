@@ -1,0 +1,24 @@
+/* DDN visual identity — spec §10.3 */
+:root {
+  --ddn-ink: #1a1b1d;
+  --ddn-ink-deep: #000000;
+  --ddn-ink-soft: rgba(26, 27, 29, 0.8);
+  --ddn-ink-muted: rgba(26, 27, 29, 0.55);
+  --ddn-surface: #ffffff;
+  --ddn-surface-warm: #fffcf9;
+  --ddn-surface-alt: #f3f3f3;
+  --ddn-line: #d8d2cb;
+  --ddn-red: #cb343b;
+  --ddn-red-bright: #ed2738;
+  --ddn-success: #2e6f4e;
+  --ddn-warning: #b07a1e;
+  --ddn-font: 'articulat-cf', 'Archivo', -apple-system, 'Segoe UI', sans-serif;
+  --ddn-radius-pill: 100px;
+  --ddn-radius-card: 12px;
+
+  /* Derived surfaces used across components, not in the spec token block directly */
+  --ddn-success-bg: rgba(46, 111, 78, 0.1);
+  --ddn-warning-bg: rgba(176, 122, 30, 0.12);
+  --ddn-red-bg: rgba(203, 52, 59, 0.08);
+  --ddn-focus-ring: #1a5ecb;
+}
