@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { ProgressStepper } from '../components/ProgressStepper'
 import { QuestionDetailPanel } from '../components/QuestionDetailPanel'
 import { QuestionList } from '../components/QuestionList'
@@ -103,6 +103,9 @@ export function QuestionsWorkspace() {
   return (
     <div>
       <div className={styles.header}>
+        <Link to={`/rfps/${id}`} className={styles.backLink}>
+          ← Back to overview
+        </Link>
         <h1 className={styles.title}>{rfp.name}</h1>
         <p className={styles.summary}>{summary}</p>
         <Card style={{ marginBottom: 20 }}>

@@ -4,11 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project state
 
-This repository is currently pre-implementation. It contains only the folder scaffold
-(`frontend/`, `backend/`, `config/`, `docs/`, `deploy/`, `scripts/`, `e2e/`, `knowledge/` —
-all empty) and the full specification at `planning/pursuit-spec.md`. There is no code, build
-system, package manager, or test suite yet — nothing to build, lint, or run. Update this file
-with real commands once implementation begins.
+Both `frontend/` and `backend/` are implemented against the spec at `planning/pursuit-spec.md`
+(read it before implementing anything — this file only summarizes the decisions that shape
+how code should be structured). `deploy/` and `e2e/` are still empty — containerization and
+the end-to-end suite are a deliberately deferred later pass (see `scripts/`'s local-process
+`start.sh`/`stop.sh` in the meantime).
+
+**Backend**: Node.js + TypeScript, Express, better-sqlite3 (a single embedded database file
+at `data/pursuit.db`), `@huggingface/transformers` for local embeddings, OpenRouter for text
+generation. `cd backend && npm install`, then `npm run dev` (watch), `npm run build`,
+`npm test` (Vitest), `npm run ingest` (knowledge ingestion CLI).
+
+**Frontend**: React 19 + TypeScript + Vite, TanStack Query, CSS Modules, Radix UI. MSW mocks
+are still present but opt-in only (`VITE_ENABLE_MOCKS=true`) — by default the app talks to
+the real backend, proxied via Vite's dev server. `cd frontend && npm install`, then `npm run
+dev`, `npm run build`, `npm test` (Vitest).
+
+**Whole app**: `bash scripts/dev.sh` runs both with hot reload. `bash scripts/start.sh` /
+`stop.sh` build both and run the single production process per spec §11.2. See
+`planning/pursuit-spec.md` §14.2 for what every script under `scripts/` does.
 
 ## What Pursuit is
 

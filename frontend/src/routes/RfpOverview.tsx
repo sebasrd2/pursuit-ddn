@@ -11,6 +11,7 @@ import { exportRfp } from '../api/rfps'
 import type { RfpStatus } from '../api/types'
 import { formatDate, RFP_STATUS_LABEL, RFP_STATUS_TONE } from '../lib/labels'
 import { useRfp, useScopingResult, useStartAnswering, useStartScoping, useUpdateRfp } from '../queries/rfps'
+import { useQuestions } from '../queries/questions'
 import styles from './RfpOverview.module.css'
 
 const STATUS_OPTIONS: Array<{ value: RfpStatus; label: string }> = (
@@ -22,6 +23,7 @@ export function RfpOverview() {
   const navigate = useNavigate()
   const { data: rfp, isLoading, isError } = useRfp(id)
   const { data: scopingResult } = useScopingResult(id)
+  const { data: categoryGroups = [] } = useQuestions(id, {})
   const updateRfp = useUpdateRfp(id)
   const startScoping = useStartScoping(id)
   const startAnswering = useStartAnswering(id)
@@ -30,6 +32,11 @@ export function RfpOverview() {
   const [onlyApproved, setOnlyApproved] = useState(false)
   const [includeExtraColumns, setIncludeExtraColumns] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
+  const [categoriesExpanded, setCategoriesExpanded] = useState(false)
+  // null = no manual override yet; defaults to collapsed once a decision has been made,
+  // expanded while still deciding (spec §3.3.5: criteria and thresholds shown alongside
+  // the result — but once acted on, the detail doesn't need to stay in front by default).
+  const [scopingDetailsOverride, setScopingDetailsOverride] = useState<boolean | null>(null)
 
   if (isError) {
     return <p>Couldn't load this RFP. It may have been deleted.</p>
@@ -59,6 +66,7 @@ export function RfpOverview() {
   }
 
   const counts = rfp.questionCounts
+  const showScopingDetails = scopingDetailsOverride ?? !rfp.decision
 
   return (
     <div>
@@ -93,16 +101,26 @@ export function RfpOverview() {
           <Card className={styles.section}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Scoping</h2>
-              <Button
-                variant="secondary"
-                onClick={() => startScoping.mutate()}
-                disabled={startScoping.isPending || rfp.status === 'no_bid'}
-              >
-                {startScoping.isPending ? 'Scoping…' : scopingResult ? 'Re-run scoping' : 'Start scoping'}
-              </Button>
+              <div className={styles.sectionHeaderActions}>
+                {scopingResult && (
+                  <Button
+                    variant="ghost"
+                    onClick={() => setScopingDetailsOverride(!showScopingDetails)}
+                  >
+                    {showScopingDetails ? 'Hide details' : 'Show details'}
+                  </Button>
+                )}
+                <Button
+                  variant="secondary"
+                  onClick={() => startScoping.mutate()}
+                  disabled={startScoping.isPending || rfp.status === 'no_bid'}
+                >
+                  {startScoping.isPending ? 'Scoping…' : scopingResult ? 'Re-run scoping' : 'Start scoping'}
+                </Button>
+              </div>
             </div>
             {scopingResult ? (
-              <ScopingResultView result={scopingResult} />
+              <ScopingResultView result={scopingResult} showDetails={showScopingDetails} />
             ) : (
               <p className={styles.emptyState}>
                 No scoping result yet. Run scoping to get a bid/no-bid recommendation against the
@@ -116,9 +134,14 @@ export function RfpOverview() {
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Auto-answer</h2>
               </div>
-              <p className={styles.emptyState} style={{ marginBottom: 16 }}>
-                {counts.unanswered} of {counts.total} questions are still unanswered.
-              </p>
+              <div className={styles.statusBreakdown}>
+                <span>{counts.unanswered} unanswered</span>
+                <span>{counts.aiAnswered} to check</span>
+                <span>{counts.needsInput} needs input</span>
+                <span>{counts.inReview} in review</span>
+                <span>{counts.approved} approved</span>
+                <span>{counts.notApplicable} not applicable</span>
+              </div>
               <Button
                 variant="primary"
                 onClick={() => startAnswering.mutate()}
@@ -169,9 +192,31 @@ export function RfpOverview() {
                 <span className={styles.metaLabel}>Status</span>
                 <Pill tone={RFP_STATUS_TONE[rfp.status]}>{RFP_STATUS_LABEL[rfp.status]}</Pill>
               </div>
-              <div className={styles.metaRow}>
-                <span className={styles.metaLabel}>Categories</span>
-                <span>{rfp.categoryCount}</span>
+              <div>
+                <button
+                  type="button"
+                  className={styles.categoriesToggle}
+                  onClick={() => setCategoriesExpanded(!categoriesExpanded)}
+                  disabled={categoryGroups.length === 0}
+                  aria-expanded={categoriesExpanded}
+                >
+                  <span className={styles.metaLabel}>Categories</span>
+                  <span>
+                    {rfp.categoryCount} {categoryGroups.length > 0 && (categoriesExpanded ? '▾' : '▸')}
+                  </span>
+                </button>
+                {categoriesExpanded && (
+                  <ul className={styles.categoryList}>
+                    {categoryGroups.map((group) => (
+                      <li key={group.categoryId}>
+                        <span>{group.categoryName}</span>
+                        <span className={styles.metaLabel}>
+                          {group.completed}/{group.total}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className={styles.metaRow}>
                 <span className={styles.metaLabel}>Questions</span>

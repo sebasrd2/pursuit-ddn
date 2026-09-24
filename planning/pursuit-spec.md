@@ -379,6 +379,10 @@ code change elsewhere in the application.
 - v1 implements one real provider, **OpenRouter** (an OpenAI-compatible API that gives
   access to many models through a single key), plus `stub` for tests. Other providers can
   be added later behind the same interface if needed.
+- v1's default text-generation model is `dots-studio/dots-3-note-preview:free`, OpenRouter's
+  free tier — chosen to keep v1 running at no per-token cost. It carries OpenRouter's usual
+  free-tier rate limits, which `PURSUIT_LLM_DELAY_MS` and `PURSUIT_LLM_MAX_RETRIES` are tuned
+  around; moving to a paid model later needs only an `.env` change (§13).
 - The text-generation provider and the embedding provider are configured independently.
   v1's embedding provider is a local model by default.
 - The active provider and model are shown on the settings screen and returned by the health
@@ -597,7 +601,7 @@ All configuration is supplied through environment variables, documented in `.env
 | Variable | Default | Purpose |
 |---|---|---|
 | `PURSUIT_LLM_PROVIDER` | `openrouter` | `openrouter` \| `stub` |
-| `PURSUIT_LLM_MODEL` | provider default | Model identifier |
+| `PURSUIT_LLM_MODEL` | `dots-studio/dots-3-note-preview:free` | Model identifier (§7) |
 | `PURSUIT_LLM_API_KEY` | — | Credential for the selected provider |
 | `PURSUIT_LLM_DELAY_MS` | `1500` | Pause between calls when answering a question set |
 | `PURSUIT_LLM_MAX_RETRIES` | `5` | Retry attempts on rate limiting or transient errors |
