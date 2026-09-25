@@ -2,6 +2,19 @@
   margin-bottom: 20px;
 }
 
+.backLink {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--ddn-ink-muted);
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--ddn-ink);
+  text-decoration: underline;
+}
+
 .title {
   font-size: 28px;
   margin-bottom: 4px;

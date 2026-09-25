@@ -1,0 +1,42 @@
+[
+  {
+    "key": "product_fit",
+    "name": "Product fit",
+    "description": "Whether DDN's portfolio addresses the requirements",
+    "enabled": true,
+    "importance": "high",
+    "isDisqualifier": false
+  },
+  {
+    "key": "technical_feasibility",
+    "name": "Technical feasibility",
+    "description": "Whether the requirements are achievable with current products",
+    "enabled": true,
+    "importance": "high",
+    "isDisqualifier": false
+  },
+  {
+    "key": "requirements_coverage",
+    "name": "Requirements coverage",
+    "description": "How much of the question set can be answered from known material",
+    "enabled": true,
+    "importance": "medium",
+    "isDisqualifier": false
+  },
+  {
+    "key": "effort_vs_opportunity",
+    "name": "Effort vs. opportunity",
+    "description": "The response effort relative to the opportunity",
+    "enabled": true,
+    "importance": "medium",
+    "isDisqualifier": false
+  },
+  {
+    "key": "mandatory_disqualifier",
+    "name": "Mandatory disqualifier",
+    "description": "Whether the RFP states a requirement DDN cannot meet at all",
+    "enabled": true,
+    "importance": null,
+    "isDisqualifier": true
+  }
+]

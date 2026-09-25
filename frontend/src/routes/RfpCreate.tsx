@@ -67,6 +67,7 @@ export function RfpCreate() {
           <TextField
             label="Due date"
             type="date"
+            min={new Date().toISOString().slice(0, 10)}
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           />

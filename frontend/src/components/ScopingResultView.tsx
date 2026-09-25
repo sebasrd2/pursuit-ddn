@@ -19,7 +19,13 @@ const THRESHOLD_LABEL: Record<string, string> = {
   aggressive: 'Aggressive',
 }
 
-export function ScopingResultView({ result }: { result: ScopingResult }) {
+interface ScopingResultViewProps {
+  result: ScopingResult
+  /** Whether the disqualifier callout and per-criterion table are shown. Defaults to true. */
+  showDetails?: boolean
+}
+
+export function ScopingResultView({ result, showDetails = true }: ScopingResultViewProps) {
   const disqualifier = result.criteria.find((c) => c.isDisqualifier)
   const scored = result.criteria.filter((c) => !c.isDisqualifier)
 
@@ -47,56 +53,60 @@ export function ScopingResultView({ result }: { result: ScopingResult }) {
         </div>
       </div>
 
-      {disqualifier && (
-        <div className={styles.disqualifier}>
-          <Pill tone={disqualifier.assessment === 'triggered' ? 'danger' : 'success'}>
-            Disqualifier: {ASSESSMENT_LABEL[disqualifier.assessment]}
-          </Pill>
-          <p className={styles.reasoning}>{disqualifier.reasoning}</p>
-        </div>
-      )}
+      {showDetails && (
+        <>
+          {disqualifier && (
+            <div className={styles.disqualifier}>
+              <Pill tone={disqualifier.assessment === 'triggered' ? 'danger' : 'success'}>
+                Disqualifier: {ASSESSMENT_LABEL[disqualifier.assessment]}
+              </Pill>
+              <p className={styles.reasoning}>{disqualifier.reasoning}</p>
+            </div>
+          )}
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Criterion</th>
-            <th>Importance</th>
-            <th>Assessment</th>
-            <th>Evidence &amp; reasoning</th>
-          </tr>
-        </thead>
-        <tbody>
-          {scored.map((criterion) => (
-            <tr key={criterion.criterionId}>
-              <td>
-                <div className={styles.criterionName}>{criterion.name}</div>
-                <div className={styles.criterionDescription}>{criterion.description}</div>
-                {!criterion.enabled && <Pill tone="neutral">Disabled</Pill>}
-              </td>
-              <td>{criterion.importance ? IMPORTANCE_LABEL[criterion.importance] : '—'}</td>
-              <td>
-                <Pill
-                  tone={
-                    criterion.assessment === 'strong'
-                      ? 'success'
-                      : criterion.assessment === 'partial'
-                        ? 'warning'
-                        : criterion.assessment === 'weak'
-                          ? 'danger'
-                          : 'neutral'
-                  }
-                >
-                  {ASSESSMENT_LABEL[criterion.assessment]}
-                </Pill>
-              </td>
-              <td>
-                {criterion.evidence && <div className={styles.evidence}>{criterion.evidence}</div>}
-                <div className={styles.reasoning}>{criterion.reasoning}</div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Criterion</th>
+                <th>Importance</th>
+                <th>Assessment</th>
+                <th>Evidence &amp; reasoning</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scored.map((criterion) => (
+                <tr key={criterion.criterionId}>
+                  <td>
+                    <div className={styles.criterionName}>{criterion.name}</div>
+                    <div className={styles.criterionDescription}>{criterion.description}</div>
+                    {!criterion.enabled && <Pill tone="neutral">Disabled</Pill>}
+                  </td>
+                  <td>{criterion.importance ? IMPORTANCE_LABEL[criterion.importance] : '—'}</td>
+                  <td>
+                    <Pill
+                      tone={
+                        criterion.assessment === 'strong'
+                          ? 'success'
+                          : criterion.assessment === 'partial'
+                            ? 'warning'
+                            : criterion.assessment === 'weak'
+                              ? 'danger'
+                              : 'neutral'
+                      }
+                    >
+                      {ASSESSMENT_LABEL[criterion.assessment]}
+                    </Pill>
+                  </td>
+                  <td>
+                    {criterion.evidence && <div className={styles.evidence}>{criterion.evidence}</div>}
+                    <div className={styles.reasoning}>{criterion.reasoning}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   )
 }

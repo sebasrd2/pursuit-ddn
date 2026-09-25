@@ -1,0 +1,14 @@
+[
+  { "name": "Sales Engineer (SE)", "isDefault": true },
+  { "name": "Legal", "isDefault": false },
+  { "name": "Security & Compliance", "isDefault": false },
+  { "name": "HR / People", "isDefault": false },
+  { "name": "Operations", "isDefault": false },
+  { "name": "Finance", "isDefault": false },
+  { "name": "Product Management", "isDefault": false },
+  { "name": "Engineering", "isDefault": false },
+  { "name": "Support & Services", "isDefault": false },
+  { "name": "Marketing", "isDefault": false },
+  { "name": "Executive", "isDefault": false },
+  { "name": "Other", "isDefault": false }
+]

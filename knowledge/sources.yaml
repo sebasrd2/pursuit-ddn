@@ -1,6 +1,15 @@
 # Web pages to ingest into the knowledge base. One entry per source.
 # See planning/pursuit-spec.md §6.1.
 #
-# sources:
-#   - url: https://www.ddn.com/example-page/
-#     title: Example page title
+sources:
+  - url: https://www.ddn.com/
+    title: Official DDN Website
+
+  - url: https://www.ddn.com/customers/
+    title: DDN Customers
+
+  - url: https://customer-docs.ddn.io/infinia
+    title: DDN Infinia Documentation
+
+  - url: https://www.ddn.com/products/lustre-file-system-exascaler/
+    title: DDN Lustre File System ExaScaler
