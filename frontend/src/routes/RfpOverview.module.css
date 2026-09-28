@@ -129,10 +129,59 @@
 }
 
 .statusBreakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.statusBox {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  font-size: 14px;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: var(--ddn-radius-card);
+  border-left: 4px solid currentColor;
+}
+
+.statusBoxEmpty {
+  opacity: 0.45;
+}
+
+.statusCount {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statusLabel {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.red {
+  color: var(--ddn-red);
+  background: var(--ddn-red-bg);
+}
+.orange {
+  color: var(--ddn-orange);
+  background: var(--ddn-orange-bg);
+}
+.amber {
+  color: var(--ddn-amber);
+  background: var(--ddn-amber-bg);
+}
+.blue {
+  color: var(--ddn-blue);
+  background: var(--ddn-blue-bg);
+}
+.green {
+  color: var(--ddn-success);
+  background: var(--ddn-success-bg);
+}
+.grey {
   color: var(--ddn-ink-muted);
-  margin-bottom: 16px;
+  background: var(--ddn-surface-alt);
 }

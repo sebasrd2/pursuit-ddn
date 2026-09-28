@@ -21,4 +21,12 @@
   --ddn-warning-bg: rgba(176, 122, 30, 0.12);
   --ddn-red-bg: rgba(203, 52, 59, 0.08);
   --ddn-focus-ring: #1a5ecb;
+
+  /* Answer-status palette: red = act now … green = good to go. Text colours meet AA on their tint. */
+  --ddn-orange: #b4470f;
+  --ddn-orange-bg: rgba(180, 71, 15, 0.1);
+  --ddn-amber: #8a6100;
+  --ddn-amber-bg: rgba(214, 160, 20, 0.14);
+  --ddn-blue: #1f5fae;
+  --ddn-blue-bg: rgba(31, 95, 174, 0.1);
 }
