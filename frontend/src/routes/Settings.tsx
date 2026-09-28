@@ -15,7 +15,13 @@ import {
   useUpdateOwnerTeam,
   useUpdateScopingSettings,
 } from '../queries/config'
+import { describeBands, IMPORTANCE_MULTIPLIER, THRESHOLD_MEANING } from '../lib/scoringRules'
 import styles from './Settings.module.css'
+
+function enabledHint(enabled: boolean, isDisqualifier: boolean): string {
+  if (!enabled) return 'Ignored when scoring'
+  return isDisqualifier ? 'Forces no-bid if triggered' : 'Included in the score'
+}
 
 const IMPORTANCE_OPTIONS = [
   { value: 'low', label: 'Low' },
@@ -71,14 +77,21 @@ export function Settings() {
 
       <Card className={styles.section}>
         <h2 className={styles.sectionTitle}>Bid / no-bid criteria</h2>
+        <p className={styles.intro}>
+          Scoping rates each enabled criterion Strong (2 points), Partial (1) or Weak (0), multiplied by its
+          importance. The total as a percentage of the maximum is the score, which the threshold turns into a
+          recommendation. If the disqualifier is triggered, the recommendation is no-bid whatever the score.
+        </p>
         {scopingSettings && (
-          <div className={styles.thresholdRow} style={{ marginBottom: 20 }}>
+          <div className={styles.thresholdRow}>
             <Select
               label="Threshold"
               value={scopingSettings.threshold}
               onValueChange={(value) => updateScopingSettings.mutate(value as Threshold)}
               options={THRESHOLD_OPTIONS}
+              hint={THRESHOLD_MEANING[scopingSettings.threshold]}
             />
+            <p className={styles.bands}>{describeBands(scopingSettings.threshold)}</p>
           </div>
         )}
         <table className={styles.criteriaTable}>
@@ -92,7 +105,7 @@ export function Settings() {
           <tbody>
             {criteria.map((criterion) => (
               <tr key={criterion.id}>
-                <td>
+                <td className={criterion.enabled ? undefined : styles.criterionOff}>
                   <div className={styles.criterionName}>{criterion.name}</div>
                   <div className={styles.criterionDescription}>{criterion.description}</div>
                 </td>
@@ -105,6 +118,7 @@ export function Settings() {
                       updateCriterion.mutate({ id: criterion.id, input: { enabled: value === 'yes' } })
                     }
                     options={ENABLED_OPTIONS}
+                    hint={enabledHint(criterion.enabled, criterion.isDisqualifier)}
                   />
                 </td>
                 <td>
@@ -122,6 +136,7 @@ export function Settings() {
                         })
                       }
                       options={IMPORTANCE_OPTIONS}
+                      hint={`Counts ${IMPORTANCE_MULTIPLIER[criterion.importance ?? 'medium']}× in the score`}
                     />
                   )}
                 </td>

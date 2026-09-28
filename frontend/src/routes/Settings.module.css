@@ -27,8 +27,27 @@
   margin-bottom: 4px;
 }
 
+.intro {
+  max-width: 720px;
+  font-size: 14px;
+  color: var(--ddn-ink-soft);
+  margin-bottom: 20px;
+}
+
 .thresholdRow {
-  max-width: 280px;
+  max-width: 420px;
+  margin-bottom: 20px;
+}
+
+.bands {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ddn-ink);
+}
+
+.criterionOff {
+  opacity: 0.5;
 }
 
 .criteriaTable {
