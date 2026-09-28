@@ -50,3 +50,25 @@ export async function retrieve(
     score,
   }))
 }
+
+/**
+ * Evidence for a whole question set: the best passages for each question on its own,
+ * deduplicated and capped at `maxTotal` (best first). One query over all questions at once
+ * lets a few broad passages crowd out the specific ones each question needs.
+ */
+export async function retrieveForQuestions(
+  db: Database.Database,
+  embedProvider: EmbedProvider,
+  questions: string[],
+  perQuestion: number,
+  maxTotal: number,
+): Promise<KnowledgePassage[]> {
+  const best = new Map<string, KnowledgePassage>()
+  for (const question of questions) {
+    for (const passage of await retrieve(db, embedProvider, question, perQuestion)) {
+      const key = `${passage.documentId}\n${passage.text}`
+      if ((best.get(key)?.score ?? -Infinity) < passage.score) best.set(key, passage)
+    }
+  }
+  return [...best.values()].sort((a, b) => b.score - a.score).slice(0, maxTotal)
+}

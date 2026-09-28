@@ -6,11 +6,15 @@ import { listQuestionRows } from '../repositories/questions.js'
 import { listBidCriterionRows } from '../repositories/bidCriteria.js'
 import { getThreshold } from '../repositories/scopingSettings.js'
 import { saveScopingRun } from '../repositories/scopingRuns.js'
-import { retrieve } from '../knowledge/retrieve.js'
+import { retrieveForQuestions } from '../knowledge/retrieve.js'
 import { buildCriterionPrompt, buildDisqualifierPrompt } from '../prompts/scoping.js'
 import { toBidCriterionView } from './views.js'
 import { scoreCriteria, recommend, type ScopingProfileEntry } from './scoring.js'
 import type { CriterionResult, Threshold } from '../types.js'
+
+/** Evidence budget for a scoping run: best passages per question, capped to keep prompts bounded. */
+const PASSAGES_PER_QUESTION = 2
+const MAX_SCOPING_PASSAGES = 40
 
 function buildRfpSummary(questions: { question_text: string }[]): string {
   if (questions.length === 0) return '(No questions have been imported yet.)'
@@ -38,13 +42,19 @@ export async function runScoping(
   db: Database.Database,
   textProvider: TextProvider,
   embedProvider: EmbedProvider,
-  retrievalTopK: number,
   rfpId: string,
 ): Promise<{ criteria: CriterionResult[]; disqualifierTriggered: boolean; overallScore: number | null; threshold: Threshold; recommendation: ReturnType<typeof recommend> }> {
   const questionRows = listQuestionRows(db, rfpId)
   const rfpSummary = buildRfpSummary(questionRows)
   const criteria = listBidCriterionRows(db).map(toBidCriterionView)
   const threshold = getThreshold(db) as Threshold
+  const passages = await retrieveForQuestions(
+    db,
+    embedProvider,
+    questionRows.map((q) => q.question_text),
+    PASSAGES_PER_QUESTION,
+    MAX_SCOPING_PASSAGES,
+  )
 
   const scored = criteria.filter((c) => !c.isDisqualifier)
   const disqualifier = criteria.find((c) => c.isDisqualifier)
@@ -54,7 +64,6 @@ export async function runScoping(
   for (const criterion of scored) {
     if (!criterion.enabled) continue
 
-    const passages = await retrieve(db, embedProvider, `${criterion.name}: ${criterion.description}\n${rfpSummary}`, retrievalTopK)
     const { systemPrompt, userPrompt } = buildCriterionPrompt({
       criterionName: criterion.name,
       criterionDescription: criterion.description,
@@ -93,7 +102,6 @@ export async function runScoping(
         reasoning: 'Disqualifier check is disabled.',
       }
     } else {
-      const passages = await retrieve(db, embedProvider, `${disqualifier.name}\n${rfpSummary}`, retrievalTopK)
       const { systemPrompt, userPrompt } = buildDisqualifierPrompt({ rfpSummary, passages })
       const response = (await cachedGenerate(db, [textProvider.model, systemPrompt, userPrompt], () =>
         textProvider.generateJson(systemPrompt, userPrompt),
