@@ -18,6 +18,35 @@ describe('Settings', () => {
     await waitFor(() => expect(thresholdTrigger).toHaveTextContent('Aggressive'))
   })
 
+  it('explains the selected threshold with its score bands', async () => {
+    const user = userEvent.setup()
+    renderWithProviders(<Settings />)
+
+    const thresholdTrigger = await screen.findByRole('combobox', { name: 'Threshold' })
+
+    await user.click(thresholdTrigger)
+    await user.click(await screen.findByRole('option', { name: 'Conservative' }))
+    expect(await screen.findByText('Bid ≥ 80 · Conditional 60–79 · No-bid < 60')).toBeInTheDocument()
+
+    await user.click(thresholdTrigger)
+    await user.click(await screen.findByRole('option', { name: 'Aggressive' }))
+    expect(await screen.findByText('Bid ≥ 50 · Conditional 35–49 · No-bid < 35')).toBeInTheDocument()
+  })
+
+  it('explains the weight of each criterion importance', async () => {
+    const user = userEvent.setup()
+    renderWithProviders(<Settings />)
+
+    await screen.findByText('Technical feasibility')
+    const row = screen.getByText('Technical feasibility').closest('tr')!
+    expect(within(row).getByText('Counts 3× in the score')).toBeInTheDocument()
+
+    await user.click(within(row).getByRole('combobox', { name: 'Technical feasibility importance' }))
+    await user.click(await screen.findByRole('option', { name: 'Low' }))
+
+    expect(await within(row).findByText('Counts 1× in the score')).toBeInTheDocument()
+  })
+
   it('changing a criterion importance dropdown submits the new value', async () => {
     const user = userEvent.setup()
     renderWithProviders(<Settings />)

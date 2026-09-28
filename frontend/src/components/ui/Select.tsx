@@ -13,6 +13,8 @@ interface SelectProps {
   onValueChange: (value: string) => void
   options: SelectOption[]
   placeholder?: string
+  /** Explains what the current value means; shown under the control. */
+  hint?: string
 }
 
 export function Select({
@@ -22,6 +24,7 @@ export function Select({
   onValueChange,
   options,
   placeholder,
+  hint,
 }: SelectProps) {
   return (
     <label className={styles.field}>
@@ -48,6 +51,7 @@ export function Select({
           </RadixSelect.Content>
         </RadixSelect.Portal>
       </RadixSelect.Root>
+      {hint && <span className={styles.hint}>{hint}</span>}
     </label>
   )
 }

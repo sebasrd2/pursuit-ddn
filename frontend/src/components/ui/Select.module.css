@@ -10,6 +10,11 @@
   color: var(--ddn-ink-muted);
 }
 
+.hint {
+  font-size: 12px;
+  color: var(--ddn-ink-muted);
+}
+
 .trigger {
   display: inline-flex;
   align-items: center;

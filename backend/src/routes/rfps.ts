@@ -113,7 +113,7 @@ export function rfpsRouter(deps: AppDeps): Router {
     const advanced = autoAdvanceStatus(rfp.status as RfpStatus, 'scoping')
     if (advanced !== rfp.status) updateRfpRow(db, rfp.id, { status: advanced })
 
-    await runScoping(db, deps.textProvider, deps.embedProvider, deps.retrievalTopK, rfp.id)
+    await runScoping(db, deps.textProvider, deps.embedProvider, rfp.id)
     res.json(toScopingResultView(getScopingRunRow(db, rfp.id)!))
   })
 

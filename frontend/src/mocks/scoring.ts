@@ -1,25 +1,13 @@
-import type {
-  BidCriterion,
-  CriterionAssessment,
-  CriterionResult,
-  Recommendation,
-  Threshold,
-  ThresholdBand,
-} from '../api/types'
+import type { BidCriterion, CriterionAssessment, CriterionResult, Recommendation, Threshold } from '../api/types'
+import { IMPORTANCE_MULTIPLIER, THRESHOLD_BANDS } from '../lib/scoringRules'
+
+export { THRESHOLD_BANDS }
 
 const POINTS: Record<CriterionAssessment, number | null> = {
   strong: 2,
   partial: 1,
   weak: 0,
   not_assessed: null,
-}
-
-const IMPORTANCE_MULTIPLIER = { low: 1, medium: 2, high: 3 } as const
-
-export const THRESHOLD_BANDS: Record<Threshold, ThresholdBand> = {
-  conservative: { bid: 80, conditionalLow: 60, conditionalHigh: 79 },
-  balanced: { bid: 65, conditionalLow: 45, conditionalHigh: 64 },
-  aggressive: { bid: 50, conditionalLow: 35, conditionalHigh: 49 },
 }
 
 export interface ScopingProfileEntry {
