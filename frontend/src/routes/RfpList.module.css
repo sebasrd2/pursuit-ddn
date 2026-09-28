@@ -1,14 +1,83 @@
 .header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 24px;
   gap: 16px;
   flex-wrap: wrap;
 }
 
+.today {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ddn-red);
+  margin-bottom: 8px;
+}
+
 .title {
   font-size: 32px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.kpis > * + * {
+  border-left: 1px solid var(--ddn-line);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--ddn-line);
+  border-radius: var(--ddn-radius-pill);
+  background: var(--ddn-surface);
+  color: var(--ddn-ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab:hover {
+  border-color: var(--ddn-ink);
+}
+
+.tab[aria-pressed='true'] {
+  background: var(--ddn-ink);
+  border-color: var(--ddn-ink);
+  color: var(--ddn-surface);
+}
+
+.tabCount {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.search {
+  width: 280px;
 }
 
 .table {
@@ -22,7 +91,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--ddn-ink-muted);
-  padding: 0 16px 12px;
+  padding: 16px 16px 12px;
   border-bottom: 1px solid var(--ddn-line);
 }
 
@@ -31,6 +100,10 @@
   border-bottom: 1px solid var(--ddn-line);
   font-size: 14px;
   vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
 }
 
 .row {
@@ -44,11 +117,29 @@
 .name {
   font-weight: 700;
   color: var(--ddn-ink);
-  text-decoration: none;
 }
 
-.stage {
+.due {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.muted {
+  font-size: 13px;
   color: var(--ddn-ink-muted);
+}
+
+.overdue {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ddn-red);
+}
+
+.decide {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ddn-red);
 }
 
 .empty {

@@ -50,9 +50,28 @@ export const RECOMMENDATION_TONE: Record<Recommendation, Tone> = {
   no_bid: 'danger',
 }
 
+/**
+ * Parses an API date. Date-only values ("2026-10-09") are read as local calendar days —
+ * `new Date()` would treat them as UTC midnight, i.e. the previous day west of UTC.
+ */
+export function parseDate(value: string): Date {
+  const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
+  if (!dateOnly) return new Date(value)
+  const [, year, month, day] = dateOnly
+  return new Date(Number(year), Number(month) - 1, Number(day))
+}
+
 export function formatDate(value: string | null): string {
   if (!value) return '—'
-  const date = new Date(value)
+  const date = parseDate(value)
   if (Number.isNaN(date.getTime())) return '—'
   return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+/** Whole calendar days from `today` to `value` (negative when overdue), or null without a date. */
+export function daysUntil(value: string | null, today: Date): number | null {
+  if (!value) return null
+  const due = parseDate(value)
+  const start = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  return Math.round((due.getTime() - start.getTime()) / 86_400_000)
 }
