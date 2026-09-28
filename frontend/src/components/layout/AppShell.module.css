@@ -9,7 +9,7 @@
   border-bottom: 1px solid var(--ddn-ink-deep);
 }
 
-.headerInner {
+.barInner {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
@@ -20,11 +20,25 @@
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   color: var(--ddn-surface);
   font-weight: 700;
   font-size: 20px;
   letter-spacing: -0.03em;
   text-decoration: none;
+}
+
+.logo {
+  height: 28px;
+  display: block;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .nav {
@@ -45,7 +59,8 @@
   color: var(--ddn-surface);
 }
 
-.navLinkActive {
+.navLinkActive,
+.navLinkActive:hover {
   color: var(--ddn-ink);
   background: var(--ddn-surface);
 }
@@ -56,4 +71,21 @@
   width: 100%;
   margin: 0 auto;
   padding: 32px 24px 64px;
+}
+
+.footer {
+  background: var(--ddn-ink);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+}
+
+.footerBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footerLogo {
+  height: 18px;
+  display: block;
 }

@@ -2,17 +2,25 @@
   margin-bottom: 20px;
 }
 
+/* Mirrors the secondary Button variant, but stays a link for navigation semantics. */
 .backLink {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--ddn-line);
+  border-radius: var(--ddn-radius-pill);
+  background: var(--ddn-surface);
+  color: var(--ddn-ink);
   font-size: 14px;
-  color: var(--ddn-ink-muted);
-  margin-bottom: 12px;
+  font-weight: 600;
   text-decoration: none;
+  transition: border-color 0.15s ease;
 }
 
 .backLink:hover {
-  color: var(--ddn-ink);
-  text-decoration: underline;
+  border-color: var(--ddn-ink);
 }
 
 .title {

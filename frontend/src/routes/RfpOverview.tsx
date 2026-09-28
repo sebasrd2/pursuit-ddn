@@ -8,7 +8,7 @@ import { Select } from '../components/ui/Select'
 import { Textarea } from '../components/ui/Textarea'
 import { Pill } from '../components/ui/Pill'
 import { exportRfp } from '../api/rfps'
-import type { RfpStatus } from '../api/types'
+import type { QuestionCounts, RfpStatus } from '../api/types'
 import { formatDate, RFP_STATUS_LABEL, RFP_STATUS_TONE } from '../lib/labels'
 import { useRfp, useScopingResult, useStartAnswering, useStartScoping, useUpdateRfp } from '../queries/rfps'
 import { useQuestions } from '../queries/questions'
@@ -17,6 +17,16 @@ import styles from './RfpOverview.module.css'
 const STATUS_OPTIONS: Array<{ value: RfpStatus; label: string }> = (
   Object.keys(RFP_STATUS_LABEL) as RfpStatus[]
 ).map((value) => ({ value, label: RFP_STATUS_LABEL[value] }))
+
+/** Auto-answer counts, most urgent first; each tone is a class in RfpOverview.module.css. */
+const ANSWER_BREAKDOWN: Array<{ key: keyof QuestionCounts; label: string; tone: string }> = [
+  { key: 'needsInput', label: 'Needs input', tone: 'red' },
+  { key: 'aiAnswered', label: 'To check', tone: 'orange' },
+  { key: 'unanswered', label: 'Unanswered', tone: 'amber' },
+  { key: 'inReview', label: 'In review', tone: 'blue' },
+  { key: 'approved', label: 'Approved', tone: 'green' },
+  { key: 'notApplicable', label: 'Not applicable', tone: 'grey' },
+]
 
 export function RfpOverview() {
   const { id = '' } = useParams()
@@ -134,14 +144,19 @@ export function RfpOverview() {
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Auto-answer</h2>
               </div>
-              <div className={styles.statusBreakdown}>
-                <span>{counts.unanswered} unanswered</span>
-                <span>{counts.aiAnswered} to check</span>
-                <span>{counts.needsInput} needs input</span>
-                <span>{counts.inReview} in review</span>
-                <span>{counts.approved} approved</span>
-                <span>{counts.notApplicable} not applicable</span>
-              </div>
+              <ul className={styles.statusBreakdown}>
+                {ANSWER_BREAKDOWN.map(({ key, label, tone }) => (
+                  <li
+                    key={key}
+                    className={[styles.statusBox, styles[tone], counts[key] === 0 ? styles.statusBoxEmpty : '']
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <span className={styles.statusCount}>{counts[key]}</span>
+                    <span className={styles.statusLabel}>{label}</span>
+                  </li>
+                ))}
+              </ul>
               <Button
                 variant="primary"
                 onClick={() => startAnswering.mutate()}
