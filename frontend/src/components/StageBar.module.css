@@ -1,0 +1,30 @@
+.stageBar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.segments {
+  display: flex;
+  gap: 3px;
+}
+
+.done,
+.todo {
+  width: 20px;
+  height: 4px;
+  border-radius: var(--ddn-radius-pill);
+}
+
+.done {
+  background: var(--ddn-ink);
+}
+
+.todo {
+  background: var(--ddn-line);
+}
+
+.label {
+  font-size: 13px;
+  color: var(--ddn-ink-muted);
+}
